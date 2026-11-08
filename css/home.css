@@ -765,6 +765,11 @@ NOTICE
 
 /* Tablet: chapters stop sticking and stack to one column */
 @media (max-width: 900px) {
+
+    .chapters::after {
+    display: none;
+  }
+  
   .hero {
     padding: 60px 48px;
   }
