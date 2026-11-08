@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Electorate profiles provide a snapshot of the demographic, household and dwelling, 
+                                      and work characteristics of each electorate in New Zealand.">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                img-src 'self' data: blob:;
+                style-src 'self' https://unpkg.com/leaflet@1.9.4/;
+                script-src 'self' https://unpkg.com/leaflet@1.9.4/ https://unpkg.com/leaflet.markercluster@1.4.1/;
+                object-src 'none';
+                base-uri 'self';
+                form-action 'none'">
+  <title>Parliamentary library: Electorate Profiles</title>
+  <link rel="stylesheet" href="css/font-awesome-all-min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/charts.css">
+  <link rel="stylesheet" href="css/electorate_profiles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a class="header-left" href="home.html">
+    <img src="assets/images/logo-nzp-white.svg" alt="Website Logo">
+      <div class="header-brand-text">
+        <span class="site-title">Parliamentary Library</span>
+        <span class="site-sub-title">Te Pātaka Rangahau</span>
+      </div>
+  </a>
+  <div class="header-panel">
+    <nav class="site-nav" id="top-nav" aria-label="Parliamentary Library tools">
+      <button type="button" id="top-menu-btn" class="top-menu-btn" aria-expanded="false" aria-controls="top-menu-links">
+        <span id="top-menu-current"></span>
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      </button>
+      <div class="top-menu-links" id="top-menu-links">
+        <a href="budget_buddy.html" class="nav-tab">Budget Buddy</a>
+        <a href="budget_dashboard.html" class="nav-tab">Budget Dashboard</a>
+        <a href="electorate_profiles.html" class="nav-tab is-active">Electorate Profiles</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<header class="sub-header">
+  <div class="wrap header-inner">
+    <nav class="site-nav page-nav" aria-label="Electorate type">
+      <ul>
+        <li> <button type="button" class="page-button is-active" data-electorate-mode="general">General Electorates</button>  </li>
+        <li> <button type="button" class="page-button" data-electorate-mode="maori">Māori Electorates</button> </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="page-content">
+<div class="filters" role="search" aria-label="Filter Votes">
+  <h3 class="sr-only">Select an electorate from the menu: </h3>
+ <div class="electorate-search" id="electorate-search-general">
+  <div class="electorate-combobox" id="electorate-combobox-general">
+    <input type="text" id="electorate-search-input-general" class="electorate-search-input" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="electorate-options-list-general" autocomplete="off" placeholder="Search electorates…">
+    <button type="button" id="electorate-search-clear-general" class="electorate-search-clear" aria-label="Clear search" tabindex="-1"><i class="fa-solid fa-xmark"></i></button>
+    <ul id="electorate-options-list-general" class="electorate-options-list" role="listbox"></ul>
+  </div>
+    <select id="electorate-select-general" class="visually-hidden-select">
+        <option value="Auckland Central" selected>Auckland Central</option>
+        <option value="Banks Peninsula" selected>Banks Peninsula</option>
+        <option value="Botany" selected>Botany</option>
+        <option value="Christchurch Central" selected>Christchurch Central</option>
+        <option value="Christchurch East" selected>Christchurch East</option>
+        <option value="Coromandel" selected>Coromandel</option>
+        <option value="Dunedin" selected>Dunedin</option>
+        <option value="East Cape" selected>East Cape</option>
+        <option value="East Coast Bays" selected>East Coast Bays</option>
+        <option value="Epsom" selected>Epsom</option>
+        <option value="Glendene" selected>Glendene</option>
+        <option value="Hamilton East" selected>Hamilton East</option>
+        <option value="Hamilton West" selected>Hamilton West</option>
+        <option value="Henderson" selected>Henderson</option>
+        <option value="Hutt South" selected>Hutt South</option>
+        <option value="Ilam" selected>Ilam</option>
+        <option value="Invercargill" selected>Invercargill</option>
+        <option value="Kaikōura" selected>Kaikōura</option>
+        <option value="Kaipara ki Mahurangi" selected>Kaipara ki Mahurangi</option>
+        <option value="Kapiti" selected>Kapiti</option>
+        <option value="Kenepuru" selected>Kenepuru</option>
+        <option value="Māngere" selected>Māngere</option>
+        <option value="Manurewa" selected>Manurewa</option>
+        <option value="Maungakiekie" selected>Maungakiekie</option>
+        <option value="Mt Albert" selected>Mount Albert</option>
+        <option value="Mt Maunganui" selected>Mount Maunganui</option>
+        <option value="Mt Roskill" selected>Mount Roskill</option>
+        <option value="Napier" selected>Napier</option>
+        <option value="Nelson" selected>Nelson</option>
+        <option value="New Plymouth" selected>New Plymouth</option>
+        <option value="North Shore" selected>North Shore</option>
+        <option value="Northcote" selected>Northcote</option>
+        <option value="Northland" selected>Northland</option>
+        <option value="Ōtāhuhu" selected>Ōtāhuhu</option>
+        <option value="Pakuranga" selected>Pakuranga</option>
+        <option value="Palmerston North" selected>Palmerston North</option>
+        <option value="Papakura" selected>Papakura</option>
+        <option value="Port Waikato" selected>Port Waikato</option>
+        <option value="Rangitata" selected>Rangitata</option>
+        <option value="Rangitīkei" selected>Rangitīkei</option>
+        <option value="Remutaka" selected>Remutaka</option>
+        <option value="Rotorua" selected>Rotorua</option>
+        <option value="Selwyn" selected>Selwyn</option>
+        <option value="Southland" selected>Southland</option>
+        <option value="Taieri" selected>Taieri</option>
+        <option value="Takanini" selected>Takanini</option>
+        <option value="Tāmaki" selected>Tāmaki</option>
+        <option value="Taranaki-King Country" selected>Taranaki-King Country</option>
+        <option value="Taupō" selected>Taupō</option>
+        <option value="Tauranga" selected>Tauranga</option>
+        <option value="Tukituki" selected>Tukituki</option>
+        <option value="Upper Harbour" selected>Upper Harbour</option>
+        <option value="Waikato" selected>Waikato</option>
+        <option value="Wairarapa" selected>Wairarapa</option>
+        <option value="Waitākere" selected>Waitākere</option>
+        <option value="Waitaki" selected>Waitaki</option>
+        <option value="Wellington Bays" selected>Wellington Bays</option>
+        <option value="Wellington North" selected>Wellington North</option>
+        <option value="West Coast-Tasman" selected>West Coast-Tasman</option>
+        <option value="Whanganui" selected>Whanganui</option>
+        <option value="Whangaparāoa" selected>Whangaparāoa</option>
+        <option value="Whangārei" selected>Whangārei</option>
+        <option value="Wigram" selected>Wigram</option>
+    </select>
+  </div>
+
+
+   <div class="electorate-search is-hidden" id="electorate-search-maori">
+  <div class="electorate-combobox" id="electorate-combobox-maori">
+    <input type="text" id="electorate-search-input-maori" class="electorate-search-input" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="electorate-options-list-maori" autocomplete="off" placeholder="Search electorates…">
+    <button type="button" id="electorate-search-clear-maori" class="electorate-search-clear" aria-label="Clear search" tabindex="-1"><i class="fa-solid fa-xmark"></i></button>
+    <ul id="electorate-options-list-maori" class="electorate-options-list" role="listbox"></ul>
+  </div>
+    <select id="electorate-select-maori" class="visually-hidden-select">
+        <option value="Hauraki-Waikato" selected>Hauraki-Waikato</option>
+        <option value="Ikaroa-Rāwhiti" selected>Ikaroa-Rāwhiti</option>
+        <option value="Tāmaki Makaurau" selected>Tāmaki Makaurau</option>
+        <option value="Te Tai Hauāuru" selected>Te Tai Hauāuru</option>
+        <option value="Te Tai Tokerau" selected>Te Tai Tokerau</option>
+        <option value="Te Tai Tonga" selected>Te Tai Tonga</option>
+        <option value="Waiariki" selected>Waiariki</option>
+    </select>
+  </div>
+  <br>
+</div>
+
+  <section class="map-section">
+    <h3 class="sr-only">Or select an electorate from the map: </h3>
+    <div class="detail-map" id="detail-map">
+      <h3 class="detail-map-heading"><span id="detail-map-electorate-name">Botany</span> Electorate</h3>
+      <div id="zoom_electorate_map"></div>
+    </div>
+          <button type="button" class="info" data-info="map" aria-label="About map">!</button>
+      </section>
+
+    <div class="content-layout">
+    <nav class="information-nav" aria-label="Profile information sections">
+      <button class="nav-tab is-active" data-tab-target="demographics">Demographics</button>
+      <button class="nav-tab" data-tab-target="household">Household and dwelling</button>
+      <button class="nav-tab" data-tab-target="work">Work</button>
+    </nav>
+
+    <div class="content-panels">
+      <section class="stat-panel" id="tab-demographics">
+        <h2> Demographic Information for <span id="panel-electorate-name-demographic">Botany</span> Electorate</h2>
+        <div class="stat-cards">
+          <article class="stat-card">
+            <h3 class="stat-title">Total population</h3>
+            <p class="stat-year">2023</p>
+            <p class="stat-value" data-stat="totalPopulation">69,009</p>
+            <p class="stat-unit">People</p>
+          </article>
+
+          <!-- <article class="stat-card"> </article> -->
+          <article class="stat-card">
+            <h3 class="stat-title">Post School Qualification <br> (Level 1+)</h3>
+            <p class="stat-year">2023</p>
+            <p class="stat-value" data-stat="schoolOrHigher">83%</p>
+            <p class="stat-unit">Aged 15+</p>
+          </article>
+
+          <article class="stat-card">
+            <h3 class="stat-title">Post School Qualification <br> (Level 4+)</h3>
+            <p class="stat-year">2023</p>
+            <p class="stat-value" data-stat="degreeOrHigher">43%</p>
+            <p class="stat-unit">Aged 15+</p>
+          </article>
+        </div>
+
+  <div class="demographic-columns">
+    <div class="age-panel-section">
+      <h3 class="section-label">Age Distribution</h3>
+      <div class="age-panel">
+        <div class="chart-wrapper chart-body">
+          <div id="ageChart" role="img" aria-label="Age breakdown"></div>
+        </div>
+        <div class="chart-foot" data-chart-tools="ageChart"></div>
+      </div>
+    </div>
+
+    <div class="gender-panel-section">
+      <h3 class="section-label">Gender Distribution <button type="button" class="info" data-info="gender" aria-label="About gender">i</button></h3>
+      <div class="gender-panel">
+        <div class="chart-wrapper chart-body">
+          <div id="genderChart" role="img" aria-label="Gender breakdown"></div>
+        </div>
+        <div class="chart-foot" data-chart-tools="genderChart"></div>
+      </div>
+    </div>
+  </div>
+
+    <h3 class="section-label" id="ethnicity-section-label">Ethnicity  <button type="button" class="info" data-info="ethnicity" aria-label="About ethnicity">i</button></h3>
+    <div class="ethnicity-panel">
+      <div class="chart-wrapper chart-body">
+        <div id="ethnicityChart" role="img" aria-label="Ethnicity breakdown for Botany"></div>
+      </div>
+      <div class="chart-foot" data-chart-tools="ethnicityChart"></div>
+    </div>
+
+    <h3 class="section-label">Highest Qualification <button type="button" class="info" data-info="highestqualification" aria-label="About highest qualification">i</button></h3>
+    <div class="qualification-panel">
+      <div class="chart-wrapper chart-body">
+        <div id="qualificationChart" role="img" aria-label="Highest qualification breakdown for Botany"></div>
+      </div>
+      <div class="chart-foot" data-chart-tools="qualificationChart"></div>
+    </div>
+  </section>
+
+
+  <!-- HOUSE HOLD AND DWELLING CHARTS -->
+  <section class="stat-panel is-hidden" id="tab-household">    
+    <h2> Household and Dwelling Information for <span id="panel-electorate-name-housing">Botany</span> Electorate</h2>
+    <div class="stat-cards">
+      <article class="stat-card">
+        <h3 class="stat-title">Mean Rent</h3>
+        <p class="stat-year">2023</p>
+        <p class="stat-value" data-stat="meanRent">$630</p>
+        <p class="stat-unit">Per Week</p>
+      </article>
+      <article class="stat-card">
+        <h3 class="stat-title">Median Rent</h3>
+        <p class="stat-year">2023</p>
+        <p class="stat-value" data-stat="medianRent">$590</p>
+        <p class="stat-unit">Per Week</p>
+      </article>
+      <article class="stat-card">
+        <h3 class="stat-title">Mean Rent New Zealand</h3>
+        <p class="stat-year">2023</p>
+        <p class="stat-value" data-stat="meanRentNZ">$450</p>
+        <p class="stat-unit">Per Week</p>
+      </article>
+      <article class="stat-card">
+        <h3 class="stat-title">Median Rent New Zealand</h3>
+        <p class="stat-year">2023</p>
+        <p class="stat-value" data-stat="medianRentNZ">$420</p>
+        <p class="stat-unit">Per Week</p>
+      </article>
+    </div>
+
+    <h3 class="section-label">Household Composition <button type="button" class="info" data-info="householdcomposition" aria-label="About household composition">i</button></h3>
+    <div class="household-composition-panel">
+      <div class="chart-wrapper chart-body">
+        <div id="householdCompositionChart" role="img" aria-label="Household composition breakdown for Botany"></div>
+      </div>
+      <div class="chart-foot" data-chart-tools="householdCompositionChart"></div>
+    </div>
+
+    <h3 class="section-label">Individual Home Ownership <button type="button" class="info" data-info="individualHomeOwnership" aria-label="About individual home ownership">i</button></h3>
+    <div class="individual-home-ownership-panel">
+      <div class="chart-wrapper chart-body">
+        <div id="individualHomeOwnershipChart" role="img" aria-label="Individual home ownership breakdown for Botany"></div>
+      </div>
+       <div class="chart-foot" data-chart-tools="individualHomeOwnershipChart"></div>
+    </div>
+  </section>
+
+      <section class="stat-panel is-hidden" id="tab-work">
+        <h2> Work and Labour Force Information for <span id="panel-electorate-name-work">Botany</span> Electorate</h2>
+        <div class="stat-cards">
+          <article class="stat-card">
+            <h3 class="stat-title">Mean Personal Income</h3>
+            <p class="stat-year">2023</p>
+            <p class="stat-value" data-stat="meanIncome">$51,300</p>
+            <p class="stat-unit">Per Week</p>
+          </article>
+          <article class="stat-card">
+            <h3 class="stat-title">Median Personal Income</h3>
+            <p class="stat-year">2023</p>
+            <p class="stat-value" data-stat="medianIncome">$42,300</p>
+            <p class="stat-unit">Per Week</p>
+          </article>
+          <article class="stat-card">
+            <h3 class="stat-title">Mean Personal Income New Zealand</h3>
+            <p class="stat-year">2023</p>
+            <p class="stat-value" data-stat="meanRentNZ">$52,700</p>
+            <p class="stat-unit">Per Week</p>
+          </article>
+          <article class="stat-card">
+            <h3 class="stat-title">Median Personal Income New Zealand</h3>
+            <p class="stat-year">2023</p>
+            <p class="stat-value" data-stat="medianRentNZ">$42,700</p>
+            <p class="stat-unit">Per Week</p>
+          </article>
+        </div>
+
+        <h3 class="section-label">Work and Labour Force Status <button type="button" class="info" data-info="workandLabourForceStatus" aria-label="About work and labour force status">i</button></h3>
+        <div class="workforce-status-panel">
+          <div class="chart-wrapper chart-body">
+            <div id="workforceStatusChart" role="img" aria-label="Work and labour force status breakdown for Botany"></div>
+          </div>
+          <div class="chart-foot" data-chart-tools="workforceStatusChart"></div>
+        </div>
+
+        <h3 class="section-label">Occupation <button type="button" class="info" data-info="occupation" aria-label="About occupation">i</button></h3>
+        <div class="occupation-panel">
+          <div class="chart-wrapper chart-body">
+            <div id="occupationChart" role="img" aria-label="Occupation breakdown for Botany"></div>
+          </div>
+          <div class="chart-foot" data-chart-tools="occupationChart"></div>
+        </div>
+
+        <h3 class="section-label">Industry <button type="button" class="info" data-info="industry" aria-label="About industry">i</button></h3>
+        <div class="industry-panel">
+          <div class="chart-wrapper chart-body">
+            <div id="industryChart" role="img" aria-label="Industry breakdown for Botany"></div>
+          </div>
+          <div class="chart-foot" data-chart-tools="industryChart"></div>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<br><br><br><br><br><br><br>
+<footer class="site-footer">
+  <div class="site-footer-brand">
+    <img src="assets/images/logo-nzp-white.svg" alt="">
+    <div class="site-footer-brand-text">
+      <span class="site-footer-brand-title">Pāremata Aotearoa</span>
+      <span class="site-footer-brand-sub">New Zealand Parliament</span>
+    </div>
+  </div>
+  <nav class="site-footer-nav" aria-label="Footer">
+    <a href="home.html">Home</a>
+    <a href="home.html#about-site">About this site</a>
+    
+  </nav>
+  <p class="site-footer-copyright">© Parliamentary Library 2026.</p>
+</footer>
+
+
+<dialog id="pop" aria-labelledby="pop-title">
+  <div class="pop-inner">
+    <div class="pop-head">
+      <div>
+        <p id="pop-kicker" class="pop-kicker"></p>
+        <h2 id="pop-title"></h2>
+      </div>
+      <button type="button" id="pop-close" class="btn-small">Close</button>
+    </div>
+    <div id="pop-body" class="pop-body"></div>
+    <div id="pop-actions" class="pop-actions"></div>
+  </div>
+</dialog>
+
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+<script src="data/2023_combined_census_data.js"></script>
+<script src="scripts/load_census_data.js"></script>
+<script src="data/general_electorate_shapefile.js"></script>
+<script src="data/maori_electorate_shapefile.js"></script>
+<script src="scripts/shared_functions/create_map.js"></script>
+<script src="scripts/shared_functions/utility_functions.js"></script>
+<script src="scripts/shared_functions/popup.js"></script>
+<script src="scripts/shared_functions/tooltips.js"></script>
+<script src="scripts/shared_functions/csv_functions.js"></script>
+<script src="scripts/shared_functions/chart_creation.js"></script>
+<script src="scripts/shared_functions/table_functions.js"></script>
+<script src="scripts/electorate_profiles.js"></script>
+</body>
+</html>

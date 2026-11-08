@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en-NZ">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+     <meta name="description" content= "See where New Zealand's public money comes from and where it goes, 
+                                        work out your own tax, and make your own Budget."/>
+    <meta http-equiv="Content-Security-Policy"
+          content=" default-src 'self';
+                    img-src 'self' data: blob:;
+                    style-src 'self';
+                    script-src 'self';
+                    object-src 'none';
+                    base-uri 'self';
+                    form-action 'none'">
+    <title>Parliamentary library: Budget Buddy</title>
+    <link rel="stylesheet" href="css/font-awesome-all-min.css">
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/charts.css" />
+    <link rel="stylesheet" href="css/youth_budget.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to main content</a>
+
+<header class="site-header">
+  <a class="header-left" href="home.html">
+    <img src="assets/images/logo-nzp-white.svg" alt="Website Logo">
+      <div class="header-brand-text">
+        <span class="site-title">Parliamentary Library</span>
+        <span class="site-sub-title">Te Pātaka Rangahau</span>
+      </div>
+  </a>
+  <div class="header-panel">
+    <nav class="site-nav" id="top-nav" aria-label="Parliamentary Library tools">
+      <button type="button" id="top-menu-btn" class="top-menu-btn" aria-expanded="false" aria-controls="top-menu-links">
+        <span id="top-menu-current"></span>
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      </button>
+      <div class="top-menu-links" id="top-menu-links">
+        <a href="budget_buddy.html" class="nav-tab is-active">Budget Buddy</a>
+        <a href="budget_dashboard.html" class="nav-tab">Budget Dashboard</a>
+        <a href="electorate_profiles.html" class="nav-tab">Electorate Profiles</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+    <!-- HEADER: crest, Library name and tabs -->
+
+    <header class="sub-header">
+      <div class="wrap header-inner">
+                <button type="button" id="menu-btn" class="menu-btn" aria-expanded="false" aria-controls="site-nav">
+      <span id="menu-current" class="menu-current"></span>
+      <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+    </button>
+        <nav id="site-nav" class="site-nav" aria-label="Budget 2026/27 dashboard">
+          <ul>
+             <li><a href="#/" data-nav="overview">Overview</a></li>
+            <li><a href="#/explore/revenue" data-nav="explore">Explore</a></li>
+            <li><a href="#/tax" data-nav="tax">Tax Calculator</a></li>
+            <li><a href="#/build" data-nav="build">Make a Budget</a></li>
+            <li><a href="#/help" data-nav="help">Questions</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- OVERVIEW PAGE -->
+      <section id="page-overview" class="page" data-title="Budget 2026/27 explained" hidden>
+        <div class="page-intro">
+          <div class="wrap intro-grid">
+            <div>
+              <!-- <p class="intro-label">Budget 2026/27</p> -->
+              <h1 tabindex="-1">Where New Zealand's money goes</h1>
+              <p class="lede">
+                The
+                <button type="button" class="term" data-term="budget">Budget</button>
+                is the Government's plan for the year: what it will collect, and what it will spend.
+              </p>
+            </div>
+          </div>
+          <div class="intro-creature" aria-hidden="true"></div>
+        </div>
+
+<div class="wrap">
+  <section class="panel coming-in" aria-labelledby="ov-rev-h">
+    <div class="panel-head">
+      <h2 id="ov-rev-h">Coming in: <span data-fill="rev-total"></span></h2>
+      <a class="btn" href="#/explore/revenue">See where it comes from</a>
+    </div>
+    <p>Most of it is tax. Out of every $1 the Government collects, about <b data-fill="rev-tax-share"></b> comes from taxes like <button type="button" class="term" data-term="incometax">income tax</button> and <button type="button" class="term" data-term="gst">GST</button>. The other <b data-fill="rev-other-share"></b> comes from things like selling services and earning interest.</p>    <div id="ov-rev-strip" class="strip" role="group" aria-label="Money coming in, by type. Tap a part to learn more."></div>
+    <ul id="ov-rev-legend" class="legend legend-spread" data-legend="rev" aria-label="Colour key"></ul>
+    <p class="source" data-source="revenue_overview"></p>
+  </section>
+
+  <div class="grid-main-side ov-main">
+    <section class="panel" aria-labelledby="ov-spend-h">
+      <div class="panel-head">
+        <h2 id="ov-spend-h">Going out: <span data-fill="spend-total"></span></h2>
+        <fieldset class="seg seg-small" data-unit-for="ov">
+          <legend class="sr-only">Show amounts as</legend>
+          <label><input type="radio" name="ov-unit" value="total" checked /><span>$</span></label>
+          <label><input type="radio" name="ov-unit" value="hundred" /><span>Out of $100</span></label>
+          <label><input type="radio" name="ov-unit" value="person" /><span>Per person</span></label>
+        </fieldset>
+      </div>
+      <p id="ov-tree-help" class="small">Each box is a spending area, sized by how much it gets. Tap one to learn more.</p>
+      <div id="ov-tree" class="treemap" role="group" aria-label="Planned spending by area" aria-describedby="ov-tree-help"></div>
+      <p class="small-key" data-small-key="ov-tree"></p>
+      <p class="source" data-source="spending"></p>
+      <p class="source">Excludes identified transfers, so money passed between parts of government isn't counted twice.</p>
+    </section>
+
+
+          <aside class="panel panel-quiet" aria-labelledby="ov-num-h">
+            <h2 id="ov-num-h">In numbers</h2>
+            <dl class="facts">
+              <div>
+                <dt>Coming in</dt>
+                <dd><strong data-fill="rev-total" data-count></strong></dd>
+              </div>
+              <div>
+                <dt>Going out</dt>
+                <dd><strong data-fill="spend-total" data-count></strong></dd>
+              </div>
+              <div>
+                <dt>The gap</dt>
+                <dd><strong data-fill="gap" data-count></strong> is usually <button type="button" class="term" data-term="borrowing">borrowed</button>
+                    <button type="button" class="info" data-info="the-gap" aria-label="How the gap” works">i</button>
+                </dd>
+              </div>
+              <div>
+                <dt>Per person</dt>
+                <dd>
+                  <strong data-fill="spend-person" data-count></strong> is spent for each person in New Zealand
+                  <button type="button" class="info" data-info="population" aria-label="How per person is worked out">i</button>
+                </dd>
+              </div>
+            </dl>
+            <button type="button" class="btn" id="why-gap">Why spend more than comes in?</button>
+          </aside>
+          </div>
+
+
+          <section class="panel" aria-labelledby="ov-do-h">
+            <h2 id="ov-do-h">What you can do here</h2>
+            <div class="three-col">
+              <div>
+                <h3>Explore</h3>
+                <p>See where the money comes from, where it goes, and what changed since last year.</p>
+                <a class="btn" href="#/explore/revenue">Explore</a>
+              </div>
+              <div>
+                <h3>Tax Calculator</h3>
+                <p>Work out roughly how much income tax you pay, and how it would be shared out.</p>
+                <a class="btn" href="#/tax">Tax Calculator</a>
+              </div>
+              <div>
+                <h3>Make a Budget</h3>
+                <p>Try making your own Budget, then compare it with the Government's.</p>
+                <a class="btn btn-primary" href="#/build">Make a Budget</a>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+
+<!-- EXPLORE PAGE -->
+  <section id="page-explore" class="page" data-title="Explore the Budget" hidden>
+    <div class="page-intro">
+      <div class="wrap intro-grid">
+        <div>
+          <h1 tabindex="-1">Explore the Budget</h1>
+          <nav aria-label="Explore views" class="subnav">
+            <ul>
+              <li><a href="#/explore/revenue" data-sub="revenue">Where it comes from</a></li>
+              <li><a href="#/explore/spending" data-sub="spending">Where it goes</a></li>
+              <li><a href="#/explore/changes" data-sub="changes">What changed</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <form class="toolbar" id="explore-controls" aria-label="Display options">
+        <fieldset class="seg" id="year-field">
+          <legend>Year</legend>
+          <label><input type="radio" name="year" value="2627" checked /><span>2026/27</span></label>
+          <label><input type="radio" name="year" value="2526" /><span>2025/26</span></label>
+        </fieldset>
+        <fieldset class="seg">
+          <legend>Show amounts as</legend>
+          <label><input type="radio" name="unit" value="total" checked /><span>Dollars</span></label>
+          <label><input type="radio" name="unit" value="hundred" /><span>Out of $100</span></label>
+          <label><input type="radio" name="unit" value="person" /><span>Per person</span></label>
+        </fieldset>
+      </form>
+
+      <!-- Explore: Revenue -->
+        <section id="view-revenue" class="subview" aria-labelledby="rv-h" hidden>
+            <div class="grid-main-side wide-main">
+              <div class="panel">
+                <h2 id="rv-h">Where the money comes from</h2>
+                <p id="rv-help" class="small">Tap a box to learn more.</p>
+                <div id="rv-tree" class="treemap" role="group" aria-label="Revenue by source" aria-describedby="rv-help"></div>
+                <p class="small-key" data-small-key="rv-tree"></p>
+                <p class="source" data-source="revenue"></p>
+              </div>
+              <div class="panel panel-quiet">
+                <table class="data-table">
+                  <caption>All sources, <span data-fill="explore-year"></span></caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Source</th>
+                      <th scope="col" class="num">Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody id="rv-table"></tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- Explore: Spending -->
+          <section id="view-spending" class="subview" aria-labelledby="sp-h" hidden>
+            <div class="grid-main-side wide-main">
+              <div class="panel">
+                <h2 id="sp-h">Where the money goes</h2>
+                <p id="sp-help" class="small">Tap a box to learn more.</p>
+                <div id="sp-tree" class="treemap" role="group" aria-label="Spending by area" aria-describedby="sp-help"></div>
+                <p class="small-key" data-small-key="sp-tree"></p>
+                <p class="source" data-source="spending"></p>
+              </div>
+              <div class="panel panel-quiet">
+                <table class="data-table">
+                 <caption>All areas, <span data-fill="explore-year"></span></caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Area</th>
+                      <th scope="col" class="num">Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody id="sp-table"></tbody>
+                </table>
+                <a class="btn btn-primary" href="budget_dashboard.html">Get a more detailed picture</a>
+              </div>
+            </div>
+          </section>
+
+        
+
+          <!-- Explore: Changes -->
+          <section id="view-changes" class="subview" aria-labelledby="ch-h" hidden>
+            <div class="panel">
+              <div class="panel-head">
+                <h2 id="ch-h">What changed since last year</h2>
+                <button type="button" class="btn-small" id="why-change">Why do amounts change?</button>
+              </div>
+              <p class="small">How much spending on each area went up or down between 2025/26 and 2026/27. Tap a row to find out more.</p>
+              <div class="cb-axis" aria-hidden="true">
+                <span class="t0">-100%</span>
+                <span class="t1">-50%</span>
+                <span class="t2">0</span>
+                <span class="t3">+50%</span>
+                <span class="t4">+100%</span>
+              </div>
+              <ol id="ch-list" class="cb-list"></ol>
+              <p class="source" data-source="changes"></p>
+            </div>
+          </section>
+
+                <section class="ticker" aria-labelledby="tk-h">
+      <div class="ticker-head">
+        <h2 id="tk-h">Spent since 1 July</h2>
+      </div>
+      <p class="ticker-value" id="tick-value" aria-hidden="true"></p>
+      <p class="sr-only" id="tick-sr"></p>
+      <p class="ticker-note" id="tick-note"></p>
+      <p class="ticker-second-note" id="tick-italics"></p>
+      <div class="ticker-controls">
+        <fieldset class="seg seg-small seg-dark">
+          <legend class="sr-only">Show ticker as</legend>
+          <label><input type="radio" name="tick" value="total" checked /><span>Total</span></label>
+          <label><input type="radio" name="tick" value="person" /><span>Per person</span></label>
+        </fieldset>
+      </div>
+    </section>
+    
+        </div>
+      </section>
+      
+
+
+      <!-- TAX CALCULATOR PAGE -->
+      <section id="page-tax" class="page" data-title="Your tax" hidden>
+        <div class="page-intro">
+          <div class="wrap intro-grid">
+            <div>
+              <h1 tabindex="-1">Tax Calculator</h1>
+              <p class="lede">
+                What you contribute in <button type="button" class="term" data-term="incometax">income tax</button>, and how it fits into the Budget.
+              </p>
+            </div>
+          </div>
+        </div>
+
+            <div class="wrap">
+      <div class="grid-half">
+        <form id="tax-form" class="panel" novalidate aria-labelledby="tf-h">
+              <h2 id="tf-h">Your pay</h2>
+              <fieldset class="seg">
+                <legend>How are you paid?</legend>
+            <label><input type="radio" name="paytype" value="hourly" checked /><span>By the hour</span></label>
+            <label><input type="radio" name="paytype" value="salary" /><span>Yearly salary</span></label>
+              </fieldset>
+              <div id="hourly-fields" class="field-row">
+            <label>Hourly rate ($)<input id="rate" type="text" inputmode="decimal" autocomplete="off" /></label>
+            <label>Hours a week<input id="hours" type="text" inputmode="decimal" autocomplete="off" /></label>
+            <label>Weeks a year<input id="weeks" type="text" inputmode="numeric" value="52" autocomplete="off" /></label>
+              </div>
+              <div id="salary-fields" class="field-row" hidden>
+            <label>Yearly salary before tax ($)<input id="salary" type="text" inputmode="decimal" autocomplete="off" /></label>
+              </div>
+              <p id="tax-error" class="error" role="alert"></p>
+              <button type="button" class="btn-small" id="tax-leaves-out">What this leaves out</button>
+            </form>
+            <section class="panel panel-result" aria-labelledby="tr-h">
+              <h2 id="tr-h">Your income tax</h2>
+              <div id="tax-result" aria-live="polite"></div>
+            </section>
+            <div class="tax-creature tax-creature-waiting" aria-hidden="true"></div>
+          </div>
+          <section id="tax-share" class="panel" aria-labelledby="ts-h" hidden>
+            <div class="panel-head">
+              <h2 id="ts-h">Your tax, shared like the Budget</h2>
+              <fieldset class="seg seg-small">
+                <legend class="sr-only">Show your tax per</legend>
+        <label><input type="radio" name="period" value="week" /><span>Weekly</span></label>
+        <label><input type="radio" name="period" value="fortnight" checked /><span>Fortnightly</span></label>
+        <label><input type="radio" name="period" value="year" /><span>Yearly</span></label>
+              </fieldset>
+             
+            </div>
+      <p class="small">All tax goes into one pot before it is spent. This shows how your tax would be shared 
+                      if it was split the same way as the Budget. 
+      <button type="button" class="info" id="why-pot" aria-label="Does my tax pay for something specific?">i</button></p>
+            <div class="grid-main-side">
+              <div>
+        <div id="tax-tree" class="treemap" role="group" aria-label="Your tax shared like the Budget"></div>
+                <p class="small-key" data-small-key="tax-tree"></p>
+              </div>
+              <table class="data-table">
+        <caption id="tax-table-cap">Your tax, roughly</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Area</th>
+                    <th scope="col" class="num" id="tax-col">Per fortnight</th>
+                  </tr>
+                </thead>
+                <tbody id="tax-table"></tbody>
+              </table>
+            </div>
+            <p id="tax-scale" class="callout"></p>
+            <p class="source" data-source="tax"></p>
+             <!-- <div class="tax-creature tax-creature-shared" aria-hidden="true"></div> -->
+          </section>
+
+          <section class="panel" aria-labelledby="gst-h">
+            <h2 id="gst-h">You also pay tax when you spend</h2>
+      <p><button type="button" class="term" data-term="gst">GST</button> is in the price of most things you buy, even if you don't have a job. That includes groceries, bus and train fares, a meal out with friends, movie tickets, clothes and phone top-ups.</p>
+      <label>What do you spend a week? ($)<input id="spend" type="text" inputmode="decimal" autocomplete="off" /></label>
+            <p id="gst-result" class="result-line" aria-live="polite"></p>
+          </section>
+        </div>
+      </section>
+
+
+<!-- MAKE A BUDGET PAGE -->
+<section id="page-build" class="page" data-title="Make your own Budget" hidden>
+<!-- Page intro -->
+  <div class="page-intro">
+    <div class="wrap intro-grid">
+      <div>
+        <h1 tabindex="-1">Make your own Budget</h1>
+  <p class="lede">Decide how much to spend, then choose how to share it out. Everything has to fit inside your total.</p>
+        <p class="intro-actions">
+          <button type="button" class="btn" id="how-build">How this works</button>
+        </p>
+      </div>
+    </div>
+    <div class="make-budget-creature" aria-hidden="true"></div>
+  </div>
+<!-- Main build content -->
+  <div class="wrap">
+<!-- Shared budget banner -->
+   <div id="shared-banner" class="notice" hidden>
+      <p>This is a Budget someone shared with you. <button type="button" class="btn-small" id="start-own">Start your own</button></p>
+    </div>
+
+<!-- Step 1: choose the total Budget amount -->
+    <section class="panel" aria-labelledby="st1-h">
+      <h2 id="st1-h"><span class="step">1</span> Choose your total</h2>
+        <fieldset class="choice-cards">
+          <legend class="sr-only">Budget total</legend>
+          <label class="choice-card"><input type="radio" name="total" value="gov" checked /><span><b>Government's plan</b> <span data-fill="spend-total"></span></span></label>
+          <label class="choice-card"><input type="radio" name="total" value="rev" /><span><b>Only what comes in</b> <span><span data-fill="rev-total"></span> · no borrowing</span></span></label>
+          <label class="choice-card"><input type="radio" name="total" value="custom" /><span><b>My own</b> <span>$100-400 billion</span></span></label>
+        </fieldset>
+        <div id="custom-wrap" class="inline-form" hidden>
+          <label>My total ($ billion)<input id="custom-total" type="text" inputmode="decimal" autocomplete="off" /></label>
+          <button type="button" class="btn" id="apply-total">Use this total</button>
+        </div>
+        <p id="total-msg" class="msg" role="status"></p>
+    </section>
+
+<!-- Step 2: share the Budget across spending areas -->
+  <section class="panel" aria-labelledby="st2-h">
+      <div class="panel-head">
+        <h2 id="st2-h"><span class="step">2</span> Share it out</h2>
+        <fieldset class="seg seg-small">
+          <legend class="sr-only">Show amounts as</legend>
+          <label><input type="radio" name="b-unit" value="total" checked /><span>$</span></label>
+          <label><input type="radio" name="b-unit" value="hundred" /><span>Out of $100</span></label>
+          <label><input type="radio" name="b-unit" value="person" /><span>Per person</span></label>
+        </fieldset>
+      </div>
+
+<!-- Budget builder grid: treemap, area list, and editor -->
+    <div class="build-grid">
+      <div class="bg-tree">
+        <div id="build-status" class="meters" role="status"></div>
+        <p id="bt-help" class="small">Tap an area, then drag its black handle or use - and +.</p>
+        <div id="build-tree" class="treemap treemap-build" role="group" aria-label="Your Budget" aria-describedby="bt-help"></div>
+      </div>
+      <div class="bg-list">
+        <ul id="build-list" class="area-list" aria-label="Areas"></ul>
+      </div>
+
+<!-- Selected area editor -->
+      <div id="editor" class="bg-sel selected-panel" aria-labelledby="ed-name">
+        <div class="sel-text">
+          <p class="sel-label">Selected area</p>
+          <p class="sel-name" id="ed-name">Select an area</p>
+          <p class="sel-change" id="ed-compare"></p>
+        </div>
+        <div class="sel-buttons">
+          <button type="button" class="btn-step" id="ed-less">- $100m</button>
+          <button type="button" class="btn-step" id="ed-more">+ $100m</button>
+        </div>
+        <div class="sel-extra">
+          <label class="sel-amount">
+            Exact amount ($b)
+            <input id="ed-value" type="text" inputmode="decimal" autocomplete="off" />
+          </label>
+          <button type="button" class="btn-small" id="ed-about">About this area</button>
+        </div>
+        <p id="ed-msg" class="msg sel-msg" role="status"></p>
+      </div>
+    </div>
+  </section>
+
+<!-- Step 3: review or reset the Budget -->
+  <section class="panel" aria-labelledby="st3-h">
+      <h2 id="st3-h"><span class="step">3</span> Review and share</h2>
+            <div class="button-row">
+              <button type="button" id="review-btn" class="btn btn-primary">Review my Budget</button>
+              <button type="button" id="reset-btn" class="btn">Start again</button>
+            </div>
+          </section>
+        </div>
+  </section>
+
+      <!-- QUESTIONS PAGE -->
+<section id="page-help" class="page" data-title="Questions and words" hidden>
+  <div class="page-intro">
+    <div class="wrap">
+      <h1 tabindex="-1">Questions and words</h1>
+    </div>
+    <div class="curious-creature" aria-hidden="true"></div>
+  </div>
+  <div class="wrap">
+    <section class="panel" aria-labelledby="faq-h">
+      <h2 id="faq-h">Common questions</h2>
+      <div id="faq-list" class="faq-list"></div>
+      <p id="faq-empty" hidden>Coming soon.</p>
+    </section>
+    <section class="panel" aria-labelledby="gl-h">
+      <h2 id="gl-h">What the words mean</h2>
+      <dl id="glossary" class="glossary"></dl>
+    </section>
+    <section class="panel" aria-labelledby="src-h">
+      <h2 id="src-h">Where the numbers come from</h2>
+      <ul id="source-list" class="source-list"></ul>
+      <p id="source-empty">Sources to come.</p>
+      <div class="question-creature" aria-hidden="true"></div>
+    </section>
+  </div>
+</section>
+
+ <div class="wrap">
+    <div class="credit">
+      <div class="credit_text">
+        <p>Made in consultation with Rito o te Pāremata (Parliament's youth reference group).</p>
+        <p>Artwork by Martha van Drunen</p>
+      </div>
+      <img src="assets/crest/rito-crest.png" alt="Rito o te Pāremata logo">
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="site-footer-brand">
+    <img src="assets/images/logo-nzp-white.svg" alt="">
+    <div class="site-footer-brand-text">
+      <span class="site-footer-brand-title">Pāremata Aotearoa</span>
+      <span class="site-footer-brand-sub">New Zealand Parliament</span>
+    </div>
+  </div>
+  <nav class="site-footer-nav" aria-label="Footer">
+    <a href="home.html">Home</a>
+    <a href="home.html#about-site">About this site</a>
+  </nav>
+  <p class="site-footer-copyright">© Parliamentary Library 2026.</p>
+</footer>
+
+<!-- POP-UP -->
+<dialog id="pop" aria-labelledby="pop-title">
+  <div class="pop-inner">
+    <div class="pop-head">
+      <div>
+        <p id="pop-kicker" class="pop-kicker"></p>
+        <h2 id="pop-title"></h2>
+      </div>
+      <button type="button" id="pop-close" class="btn-small">Close</button>
+    </div>
+    <div id="pop-body" class="pop-body"></div>
+    <div id="pop-actions" class="pop-actions"></div>
+  </div>
+</dialog>
+
+<script src="data/youth_budget_metadata.js" defer></script>
+<script src="data/PREFU_metadata.js" defer></script>
+
+<script src="scripts/shared_functions/utility_functions.js" defer></script>
+<script src="scripts/shared_functions/budget_calculations.js" defer></script>
+<script src="scripts/shared_functions/csv_functions.js" defer></script>
+<script src="scripts/shared_functions/treemap_creation.js" defer></script>
+<script src="scripts/shared_functions/popup.js" defer></script>
+<script src="scripts/shared_functions/tooltips.js" defer></script>
+<script src="scripts/shared_functions/table_functions.js" defer></script>
+<script src="scripts/shared_functions/chart_creation.js" defer></script>
+
+<script src="scripts/budget_builder.js" defer></script>
+<script src="scripts/youth_budget.js" defer></script>
+
+
+</body>
+</html>

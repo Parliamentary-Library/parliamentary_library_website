@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Explore the 2026/27 Estimates of Appropriations: spending by Vote, every appropriation, multi-year
+                                    appropriations, trends and downloadable data.">
+  <meta http-equiv="Content-Security-Policy"
+        content=" default-src 'self';
+                  img-src 'self' data: blob:;
+                  style-src 'self';
+                  script-src 'self';
+                  object-src 'none';
+                  base-uri 'self';
+                  form-action 'none'">
+  <title>Parliamentary library: Budget 2026/27 dashboard</title>
+  <link rel="stylesheet" href="css/font-awesome-all-min.css">
+  <link rel="stylesheet" href="css/budget_dashboard.css" />
+  <link rel="stylesheet" href="css/charts.css" />
+  <link rel="stylesheet" href="css/base.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to main content</a>
+
+  <!-- HEADER: crest, Library name and the main nav -->
+  <header class="site-header">
+  <a class="header-left" href="home.html">
+    <img src="assets/images/logo-nzp-white.svg" alt="Website Logo">
+      <div class="header-brand-text">
+        <span class="site-title">Parliamentary Library</span>
+        <span class="site-sub-title">Te Pātaka Rangahau</span>
+      </div>
+  </a>
+    <div class="header-panel">
+    <nav class="site-nav" id="top-nav" aria-label="Parliamentary Library tools">
+      <button type="button" id="top-menu-btn" class="top-menu-btn" aria-expanded="false" aria-controls="top-menu-links">
+        <span id="top-menu-current"></span>
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      </button>
+      <div class="top-menu-links" id="top-menu-links">
+        <a href="budget_buddy.html" class="nav-tab">Budget Buddy</a>
+        <a href="budget_dashboard.html" class="nav-tab is-active">Budget Dashboard</a>
+        <a href="electorate_profiles.html" class="nav-tab">Electorate Profiles</a>
+      </div>
+    </nav>
+    </div>
+  </header>
+
+    <!-- HEADER: dashboard's tabs -->
+    <header class="sub-header">
+      <div class="wrap header-inner">
+        <button type="button" id="menu-btn" class="menu-btn" aria-expanded="false" aria-controls="site-nav">
+      <span id="menu-current" class="menu-current"></span>
+      <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+    </button>
+        <nav id="site-nav" class="site-nav" aria-label="Budget 2026/27 dashboard">
+          <ul>
+            <li><a href="#/" data-nav="overview">Overview</a></li>
+            <li><a href="#/votes" data-nav="votes">Votes</a></li>
+            <li><a href="#/appropriations" data-nav="appropriations">Appropriations</a></li>
+            <li><a href="#/multi-year" data-nav="multi-year">Multi-year</a></li>
+            <li><a href="#/summary" data-nav="summary">Financial summary</a></li>
+            <li><a href="#/people" data-nav="people">Ministers and departments</a></li>
+            <li><a href="#/help" data-nav="help">Help and data</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+
+    <main id="main">
+      <!-- OVERVIEW PAGE -->
+       <section id="page-overview" class="page" hidden>
+                <div class="hero-banner">
+          <img class="hero-banner-image" src="assets\images\new-zealand-money-currency-or-cash-istock.D7cXMw.jpg" alt="New Zealand Currency" width="1600" height="600" />
+          <div class="wrap hero-banner-text">
+            <p class="kicker">Estimates of Appropriations 2026/27</p>
+            <h1 tabindex="-1">What the Government is asking Parliament to spend in 2026/27</h1>
+          </div>
+          <p class="hero-banner-credit">Source: iStock</p>
+        </div>
+
+        <div class="wrap">
+          <p class="lede">Every dollar of public spending needs Parliament's approval. The 2026/27 <button type="button" class="term" data-term="estimates">Estimates</button> ask for <b data-fill="total-all"></b> across <b data-fill="vote-count"></b> Votes. Explore it by Vote, look up any appropriation, compare years and download the data.</p>
+          <p class="dateline">Published <span data-fill="published"></span> <span aria-hidden="true">|</span> Updated <span data-fill="updated"></span> <span aria-hidden="true">|</span> Source: <a data-source-link="estimates" href="#">The Treasury</a></p>
+
+           <!-- Overview: Key figures -->
+          <div class="stat-cards">
+            <article class="stat-card">
+              <h3 class="stat-title">Total appropriations 2026/27</h3>
+              <p class="stat-value" data-fill="total-all"></p>
+              <p class="stat-unit">All Votes <a class="note-ref" href="#note-total" aria-label="Note 1">1</a></p>
+            </article>
+            <article class="stat-card">
+              <h3 class="stat-title">Excluding identified transfers</h3>
+              <p class="stat-value" data-fill="total-ex"></p>
+              <p class="stat-unit">Without the <span data-fill="transfer-amount"></span> of asset transfers <a class="note-ref" href="#note-transfers" aria-label="Note 2">2</a></p>
+            </article>
+            <article class="stat-card">
+              <h3 class="stat-title">Per person</h3>
+              <p class="stat-value" data-fill="per-person"></p>
+              <p class="stat-unit">Excluding transfers <a class="note-ref" href="#note-perperson" aria-label="Note 3">3</a></p>
+            </article>
+            <article class="stat-card">
+              <h3 class="stat-title">Revenue from all Votes</h3>
+              <p class="stat-value" data-fill="revenue"></p>
+              <p class="stat-unit">Of which tax <span data-fill="tax"></span> <a class="note-ref" href="#note-revenue" aria-label="Note 4">4</a></p>
+            </article>
+          </div>
+
+          <div class="controls-bar" role="group" aria-label="Options for the charts on this page">
+            <label class="check"><input type="checkbox" data-setting="transfers" /> Include identified transfers</label>
+            <button type="button" class="info" data-term="transfer" aria-label="What are identified transfers?">?</button>
+          </div>
+
+          <!-- Overview: Spending by Vote -->
+          <section class="section-block" aria-labelledby="ov-votes-h">
+            <div class="section-head">
+              <h2 id="ov-votes-h">Spending by Vote</h2>
+              <fieldset class="seg seg-small">
+                <legend class="sr-only">Show boxes for</legend>
+                <label><input type="radio" name="ov-group" value="vote" checked /> <span>Votes</span></label>
+                <label><input type="radio" name="ov-group" value="sector" /> <span>Sectors</span></label>
+              </fieldset>
+            </div>
+            <figure class="chart" id="fig-treemap">
+              <figcaption class="chart-caption">Each box is a <button type="button" class="term" data-term="vote">Vote</button>, sized by its 2026/27 appropriations and coloured by <button type="button" class="term" data-term="sector">sector</button>. Select a box to open that Vote. Amounts in $000.</figcaption>
+              <ul class="legend" id="sector-legend" aria-label="Sector colours"></ul>
+              <div class="chart-body">
+                <div id="ov-treemap"  class="treemap" role="group" aria-label="Spending by Vote, box chart"></div>
+                <div class="small-key" data-small-key="ov-treemap" hidden></div>
+              </div>
+              <div class="chart-foot" data-chart-tools="ov-treemap"></div>
+            </figure>
+          </section>
+
+          <div class="grid-2">
+            <!-- Overview: What the money is for -->
+            <section class="section-block" aria-labelledby="ov-type-h">
+              <h2 id="ov-type-h">What the money is for</h2>
+              <figure class="chart" id="fig-types">
+                <figcaption class="chart-caption">2026/27 appropriations by type of spending, $000.</figcaption>
+                <div class="chart-body" id="ov-types"></div>
+                <div class="chart-foot" data-chart-tools="ov-types"></div>
+              </figure>
+            </section>
+            <!-- Overview: Largest appropriations -->
+            <section class="section-block" aria-labelledby="ov-largest-h">
+              <h2 id="ov-largest-h">Largest appropriations</h2>
+              <figure class="chart" id="fig-largest">
+                <figcaption class="chart-caption">The ten largest single appropriations in 2026/27. Together they make up <span data-fill="top10-share"></span> of the total. Amounts in $000.</figcaption>
+                <div class="chart-body" id="ov-largest"></div>
+                <div class="chart-foot" data-chart-tools="ov-largest"></div>
+              </figure>
+            </section>
+          </div>
+
+          <!-- Overview: Spending and revenue over time -->
+          <section class="section-block" aria-labelledby="ov-trend-h">
+            <h2 id="ov-trend-h">Spending and revenue over time</h2>
+            <figure class="chart" id="fig-trend">
+              <figcaption class="chart-caption">Total appropriations spending and revenue, 2021/22 to 2029/30, $000. Years after 2026/27 are <button type="button" class="term" data-term="forecast">forecasts</button>.</figcaption>
+              <ul class="legend" id="trend-legend" aria-label="Chart key"></ul>
+              <div class="chart-body" id="ov-trend"></div>
+              <div class="chart-foot" data-chart-tools="ov-trend"></div>
+            </figure>
+          </section>
+
+          <!-- Overview: Biggest changes from 2025/26 -->
+          <section class="section-block" aria-labelledby="ov-change-h">
+            <h2 id="ov-change-h">Biggest changes from 2025/26</h2>
+            <figure class="chart" id="fig-change">
+              <figcaption class="chart-caption">Change in each Vote between 2025/26 <button type="button" class="term" data-term="finalbudgeted">final budgeted</button> and the 2026/27 Budget. The ten largest increases and decreases, $000.</figcaption>
+              <div class="chart-body" id="ov-change"></div>
+              <div class="chart-foot" data-chart-tools="ov-change"></div>
+            </figure>
+          </section>
+
+          <!-- Overview: Explore further -->
+          <section class="section-block" aria-labelledby="ov-more-h">
+            <h2 id="ov-more-h">Explore further</h2>
+            <ul class="link-list">
+              <li><a href="#/votes">All 51 Votes</a> <span>Compare Votes, then open one for its trend, appropriations and Ministers.</span></li>
+              <li><a href="#/appropriations">Search every appropriation</a> <span>Filter by Vote, type, Minister or department and download the results.</span></li>
+              <li><a href="#/summary">Financial summary</a> <span>Actuals, budgets and forecasts for each Vote from 2021/22 to 2029/30.</span></li>
+              <li><a href="#/help#process">How the Budget passes Parliament</a> <span>From Budget day to the Appropriation Bill and Supplementary Estimates.</span></li>
+            </ul>
+          </section>
+
+          <!-- Overview: Notes and sources -->
+          <section class="notes" aria-labelledby="ov-notes-h">
+            <h2 id="ov-notes-h">Notes and sources</h2>
+            <ol id="ov-notes"></ol>
+            <div data-cite></div>
+          </section>
+        </div>
+      </section>
+
+      <!-- VOTES PAGE -->
+    <section id="page-votes" class="page" hidden>
+      <div class="wrap">
+        <div class="page-head">
+          <h1 tabindex="-1">Votes</h1>
+          <p class="lede">A <button type="button" class="term" data-term="vote">Vote</button> is a group of appropriations managed by one department. Compare all <span data-fill="vote-count"></span> Votes, then open one for more detail.</p>
+        </div>
+        <div class="filters" role="search" aria-label="Filter Votes">
+          <label>Search <input type="search" id="votes-search" placeholder="Vote name" autocomplete="off" /></label>
+          <label>Sector <select id="votes-sector"></select></label>
+          <label class="check"><input type="checkbox" data-setting="transfers" /> Include identified transfers</label>
+        </div>
+        <p class="result-summary" id="votes-summary" role="status"></p>
+        <p class="small table-note" id="votes-note"></p>
+        <div class="table-scroll" tabindex="0" aria-labelledby="votes-caption">
+          <table class="data-table sortable" id="votes-table">
+            <caption id="votes-caption" class="sr-only">Votes, 2026/27</caption>
+          </table>
+        </div>
+        <div class="table-actions">
+          <button type="button" class="btn-small" id="votes-csv">Download this table (CSV)</button>
+        </div>
+        <p class="source" data-source="estimates"></p>
+      </div>
+    </section>
+
+      <!-- APPROPRIATIONS PAGE -->
+    <section id="page-appropriations" class="page" hidden>
+      <div class="wrap">
+        <div class="page-head">
+          <h1 tabindex="-1">Appropriations</h1>
+          <p class="lede">Search and filter every <button type="button" class="term" data-term="appropriation">appropriation</button> in the 2026/27 Estimates. Select one to see its scope, figures and responsible Minister. Your filters are saved in the page address, so you can bookmark or share a search.</p>
+        </div>
+        <div class="filters" role="search" aria-label="Filter appropriations">
+          <label class="filter-wide">Search <input type="search" id="ap-search" placeholder="Name, scope, Minister or department" autocomplete="off" /></label>
+          <label>Sector <select id="ap-sector" data-filter="sector"></select></label>
+          <label>Vote <select id="ap-vote" data-filter="vote"></select></label>
+          <label>Type <select id="ap-type" data-filter="type"></select></label>
+          <label>Portfolio <select id="ap-portfolio" data-filter="portfolio"></select></label>
+          <label>Department <select id="ap-department" data-filter="department"></select></label>
+          <label>Show <select id="ap-level" data-filter="level">
+              <option value="top">Appropriations</option>
+              <option value="all">Appropriations and categories</option>
+              <option value="category">MCA categories only</option>
+          </select></label>
+          <label class="check"><input type="checkbox" data-setting="transfers" /> Include identified transfers</label>
+          <div class="filter-actions">
+            <button type="button" class="btn-small" id="ap-reset">Clear filters</button>
+          </div>
+        </div>
+        <p class="result-summary" id="ap-summary" role="status"></p>
+        <div class="table-scroll" tabindex="0" aria-labelledby="ap-caption">
+          <table class="data-table sortable" id="ap-table">
+            <caption id="ap-caption" class="sr-only">Appropriations matching your filters</caption>
+          </table>
+        </div>
+        <div class="table-actions">
+          <div class="pager" id="ap-pager"></div>
+          <button type="button" class="btn-small" id="ap-csv">Download these results (CSV)</button>
+        </div>
+        <p class="source" data-source="estimates"></p>
+      </div>
+    </section>
+
+    <!-- MULTI-YEAR PAGE -->
+    <section id="page-multi-year" class="page" hidden>
+      <div class="wrap">
+        <div class="page-head">
+          <h1 tabindex="-1">Multi-year appropriations</h1>
+          <p class="lede"><button type="button" class="term" data-term="mya">Multi-year appropriations</button> cover projects that run for up to five years. The 2026/27 amount is the part expected to be spent this year. Select one to see how much has been used and how much is left.</p>
+        </div>
+        <!-- <dl class="key-figures key-figures-small" id="mya-figures"></dl> -->
+        <div class="stat-cards" id="mya-figures"></div>
+        <div class="filters" role="search" aria-label="Filter multi-year appropriations">
+          <label class="filter-wide">Search <input type="search" id="mya-search" placeholder="Name, Vote or Minister" autocomplete="off" /></label>
+          <label>Vote <select id="mya-vote"></select></label>
+          <label>Type <select id="mya-type"></select></label>
+          <label>Ends <select id="mya-ends"></select></label>
+        </div>
+        <p class="result-summary" id="mya-summary" role="status"></p>
+        <div class="table-scroll" tabindex="0" aria-labelledby="mya-caption">
+          <table class="data-table sortable" id="mya-table">
+            <caption id="mya-caption" class="sr-only">Multi-year appropriations</caption>
+          </table>
+        </div>
+        <div class="table-actions">
+          <div class="pager" id="mya-pager"></div>
+          <button type="button" class="btn-small" id="mya-csv">Download these results (CSV)</button>
+        </div>
+        <p class="source" data-source="estimates"></p>
+      </div>
+    </section>
+
+   <!-- FINANCIAL SUMMARY PAGE -->
+      <section id="page-summary" class="page" hidden>
+        <div class="wrap">
+          <div class="page-head">
+            <h1 tabindex="-1">Financial summary</h1>
+            <p class="lede">
+              Actual spending and revenue for past years, the 2026/27 Budget and forecasts, from the
+              <button type="button" class="term" data-term="sfa">Summary of Financial Activity</button>
+              in each Vote. Open a Vote to see its categories.
+            </p>
+            <p class="small">
+              These are the Treasury's own Vote totals, so they include identified transfers and multi-year
+              appropriations.
+            </p>
+          </div>
+          <div class="filters" aria-label="Table options" role="group">
+            <fieldset class="seg seg-small">
+              <legend>Show</legend>
+              <label>
+                <input type="radio" name="sfa-side" value="Appropriations" checked />
+                <span>Appropriations</span>
+              </label>
+              <label>
+                <input type="radio" name="sfa-side" value="Revenue" />
+                <span>Revenue</span>
+              </label>
+            </fieldset>
+            <label>
+              Sector
+              <select id="sfa-sector"></select>
+            </label>
+            <label>
+              Vote
+              <select id="sfa-vote"></select>
+            </label>
+            <fieldset class="seg seg-small">
+              <legend>Units</legend>
+              <label>
+                <input type="radio" name="sfa-unit" value="k" checked />
+                <span>$000</span>
+              </label>
+              <label>
+                <input type="radio" name="sfa-unit" value="m" />
+                <span>$ million</span>
+              </label>
+            </fieldset>
+          </div>
+          <div class="table-actions table-actions-top">
+            <div class="button-row">
+              <button type="button" class="btn-small" id="sfa-open-all">Open all Votes</button>
+              <button type="button" class="btn-small" id="sfa-close-all">Close all</button>
+            </div>
+            <div class="button-row">
+              <button type="button" class="btn-small" id="sfa-csv">Download (CSV)</button>
+              <button type="button" class="btn-small" id="sfa-copy">Copy for Excel</button>
+            </div>
+          </div>
+          <p class="msg" id="sfa-msg" role="status"></p>
+          <div class="table-scroll table-scroll-tall" tabindex="0" aria-labelledby="sfa-caption">
+            <table class="data-table pivot" id="sfa-table">
+              <caption id="sfa-caption" class="sr-only">
+                Summary of Financial Activity by Vote
+              </caption>
+            </table>
+          </div>
+          <div class="key-explain">
+            <h2>Reading the columns</h2>
+            <dl class="defs">
+              <dt>Actual</dt>
+              <dd>Audited spending or revenue for 2021/22 to 2024/25.</dd>
+              <dt>Final budgeted</dt>
+              <dd>The 2025/26 amount after the Supplementary Estimates.</dd>
+              <dt>Estimated actual</dt>
+              <dd>What departments expect to have spent or received by the end of 2025/26.</dd>
+              <dt>Budget</dt>
+              <dd>The 2026/27 amount Parliament is asked to approve.</dd>
+              <dt>Forecast</dt>
+              <dd>Estimates for later years. Not approved by Parliament and likely to change.</dd>
+            </dl>
+          </div>
+          <p class="source" data-source="estimates"></p>
+        </div>
+      </section>
+
+      <!-- MINISTERS AND DEPARTMENTS PAGE -->
+      <section id="page-people" class="page" hidden>
+        <div class="wrap">
+          <div class="page-head">
+            <h1 tabindex="-1">Ministers and departments</h1>
+            <p class="lede">
+              Who is responsible for each appropriation. Ministers are listed by
+              <button type="button" class="term" data-term="portfolio">portfolio</button>, departments by the agency that administers the money.</p>
+          </div>
+          <nav class="tabs" aria-label="Ministers or departments">
+            <ul>
+              <li><a href="#/people/ministers" data-tab="ministers">Ministers</a></li>
+              <li><a href="#/people/departments" data-tab="departments">Departments</a></li>
+            </ul>
+          </nav>
+          <div class="filters" role="search" aria-label="Filter the list">
+            <label class="filter-wide">
+              Search
+              <input type="search" id="people-search" autocomplete="off" />
+            </label>
+          </div>
+          <p class="result-summary" id="people-summary" role="status"></p>
+          <div class="table-scroll" tabindex="0" aria-labelledby="people-caption">
+            <table class="data-table sortable" id="people-table">
+              <caption id="people-caption" class="sr-only"></caption>
+            </table>
+          </div>
+          <p class="small" id="people-note"></p>
+          <div class="table-actions">
+            <button type="button" class="btn-small" id="people-csv">Download this table (CSV)</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- DETAIL PAGE: one Vote, Minister or department -->
+      <section id="page-detail" class="page" hidden>
+        <div class="wrap" id="detail"></div>
+      </section>
+
+      <!-- HELP AND DATA PAGE -->
+      <section id="page-help" class="page" hidden>
+        <div class="wrap">
+          <div class="page-head">
+            <h1 tabindex="-1">Help and data</h1>
+            <p class="lede">
+              How the Budget passes Parliament, how to read the figures, what the words mean, and the data
+              behind this dashboard.
+            </p>
+          </div>
+          <div class="with-toc">
+          <nav class="information-nav" aria-label="On this page">
+            <a class="nav-tab" href="#/help#process">How the Budget passes Parliament</a>
+            <a class="nav-tab" href="#/help#reading">Reading the figures</a>
+            <a class="nav-tab" href="#/help#glossary">Glossary</a>
+            <a class="nav-tab" href="#/help#data">Data and downloads</a>
+            <a class="nav-tab" href="#/help#sources">Sources</a>
+            <a class="nav-tab" href="#/help#cite">How to cite</a>
+            <a class="nav-tab" href="#/help#contact">Contact</a>
+          </nav>
+            <div class="article">
+              <!-- Help: How the Budget passes Parliament -->
+              <section id="process" aria-labelledby="process-h">
+                <h2 id="process-h">How the Budget passes Parliament</h2>
+                <!-- IMAGE: Help page photo -->
+                <figure class="article-image">
+                  <img
+                    src="assets\images\New_Zealand_House_of_Representatives_debating_chamber.jpg"
+                    alt="Placeholder: photo of the New Zealand House of Representativesdebating chamber"
+                    width="1500"
+                    height="1000"
+                  />
+                  <figcaption>Source: Wikimedia Commons</figcaption>
+                </figure>
+                <ol class="process" id="process-list"></ol>
+              </section>
+
+              <!-- Help: Reading the figures -->
+              <section id="reading" aria-labelledby="reading-h">
+                <h2 id="reading-h">Reading the figures</h2>
+                <h3>Appropriations are limits, not spending</h3>
+                <p>
+                  An appropriation is the most a department can spend for a purpose. Actual spending is
+                  usually lower. Appropriations also include capital spending and transfers, so the total is
+                  not the same as the Government's expenses in its financial statements.
+                </p>
+                <h3>Identified transfers</h3>
+                <p>
+                  Some appropriations move assets or money between parts of the government rather than paying
+                  for services. In 2026/27 the largest is the
+                  <span data-fill="largest-transfer"></span>
+                  transfer of school property assets to the New Zealand School Property Agency. Most totals on
+                  this site leave identified transfers out. Tick "Include identified transfers" to add them
+                  back.
+                </p>
+                <h3>Multi-category appropriations</h3>
+                <p>
+                  A multi-category appropriation (MCA) is shown once as a total and again as its categories.
+                  Adding both together counts the money twice, so totals on this site use the MCA total only.
+                </p>
+                <h3>Units and rounding</h3>
+                <p>
+                  The Estimates show amounts in $000 (thousands of dollars). Tables and charts on this site
+                  use $000 too, so they can be checked against the Vote documents. The key figures at the top
+                  of pages are rounded to $ billion or $ million so they are easy to read.
+                </p>
+                <h3>Which year is compared</h3>
+                <p>
+                  Changes compare the 2026/27 Budget with the 2025/26 final budgeted amount (after the
+                  Supplementary Estimates). This is the comparison the Treasury uses in the Vote documents.
+                </p>
+                <h3>Sectors</h3>
+                <p>
+                  Sectors are the groupings used in the Estimates. Each Vote's Summary of Financial Activity
+                  names its sector. The full list is below.
+                </p>
+                <div class="table-scroll">
+                  <table class="data-table" id="sector-table">
+                    <caption>
+                      Votes in each sector
+                    </caption>
+                  </table>
+                </div>
+              </section>
+
+              <!-- Help: Glossary -->
+              <section id="glossary" aria-labelledby="glossary-h">
+                <h2 id="glossary-h">Glossary</h2>
+                <label>
+                  Search the glossary
+                  <input type="search" id="gloss-search" autocomplete="off" />
+                </label>
+                <p class="small" id="gloss-count" role="status"></p>
+                <dl class="glossary" id="gloss-list"></dl>
+              </section>
+
+              <!-- Help: Data and downloads -->
+              <section id="data" aria-labelledby="data-h">
+                <h2 id="data-h">Data and downloads</h2>
+                <p>
+                  The Library read the data from the Vote documents of the Treasury's Estimates of
+                  Appropriations 2026/27 and checked that each Vote adds up to its published totals. All
+                  amounts are in $000. Each file can be opened in Excel.
+                </p>
+                <ul class="downloads" id="download-list"></ul>
+              </section>
+
+              <!-- Help: Sources -->
+              <section id="sources" aria-labelledby="sources-h">
+                <h2 id="sources-h">Sources</h2>
+                <ul class="source-list" id="source-list"></ul>
+              </section>
+
+              <!-- Help: How to cite -->
+              <section id="cite" aria-labelledby="cite-h">
+                <h2 id="cite-h">How to cite</h2>
+                <div data-cite></div>
+              </section>
+
+              <!-- Help: Contact -->
+              <section id="contact" aria-labelledby="contact-h">
+                <h2 id="contact-h">Contact</h2>
+                <p>
+                  Questions about this dashboard or the data:
+                  <a data-fill-href="mailto" href="#"><span data-fill="email"></span></a>. Members of
+                  Parliament and their staff can also ask the Library for research on the Budget.
+                </p>
+              </section>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE NOT FOUND -->
+      <section id="page-notfound" class="page" hidden>
+        <div class="wrap">
+          <div class="page-head">
+            <h1 tabindex="-1">Page not found</h1>
+            <p class="lede">We couldn't find that page. It may have moved after a data update.</p>
+            <p><a class="btn" href="#/">Go to the overview</a></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- POP-UPS: glossary and chart pop-up, appropriation pop-up, chart tooltip -->
+    <dialog id="pop" aria-labelledby="pop-title">
+      <div class="pop-inner">
+        <div class="pop-head">
+          <h2 id="pop-title"></h2>
+          <button type="button" class="btn-small" data-close>Close</button>
+        </div>
+        <div id="pop-body"></div>
+      </div>
+    </dialog>
+
+    <dialog class="item-pop" id="item-pop" aria-labelledby="item-title">
+      <header class="item-head" id="item-head"></header>
+      <div class="item-inner">
+        <div id="item-body"></div>
+      </div>
+    </dialog>
+
+    <div id="tooltip" class="tooltip" role="tooltip" hidden></div>
+
+    <!-- FOOTER -->
+<footer class="site-footer">
+  <div class="site-footer-brand">
+    <img src="assets/images/logo-nzp-white.svg" alt="">
+    <div class="site-footer-brand-text">
+      <span class="site-footer-brand-title">Pāremata Aotearoa</span>
+      <span class="site-footer-brand-sub">New Zealand Parliament</span>
+    </div>
+  </div>
+  <nav class="site-footer-nav" aria-label="Footer">
+    <a href="home.html">Home</a>
+    <a href="home.html#about-site">About this site</a>
+  </nav>
+  <p class="site-footer-copyright">© Parliamentary Library 2026.</p>
+</footer>
+
+<script src="data/budget_dashboard_metadata.js"></script>
+<script src="data/budget_data.js"></script>
+<script src="scripts/shared_functions/utility_functions.js"></script>
+<script src="scripts/shared_functions/budget_calculations.js"></script>
+<script src="scripts/shared_functions/csv_functions.js"></script>
+<script src="scripts/shared_functions/treemap_creation.js"></script>
+<script src="scripts/shared_functions/tooltips.js"></script>
+<script src="scripts/shared_functions/table_functions.js"></script>
+<script src="scripts/shared_functions/chart_creation.js"></script>
+<script src="scripts/budget_dashboard.js"></script>
+
+  </body>
+</html>

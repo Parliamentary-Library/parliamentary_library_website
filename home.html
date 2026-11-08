@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Home Page for the Parliamentary Library Website">
+  <meta http-equiv="Content-Security-Policy"
+        content=" default-src 'self';
+                  img-src 'self' data: blob:;
+                  style-src 'self';
+                  script-src 'self';
+                  object-src 'none';
+                  base-uri 'self';
+                  form-action 'none'">
+  <title>Parliamentary Library Home</title>
+  <link rel="stylesheet" href="css/font-awesome-all-min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/electorate_profiles.css">
+  <link rel="stylesheet" href="css/charts.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a class="header-left" href="home.html">
+    <img src="assets/images/logo-nzp-white.svg" alt="Website Logo">
+      <div class="header-brand-text">
+        <span class="site-title">Parliamentary Library</span>
+        <span class="site-sub-title">Te Pātaka Rangahau</span>
+      </div>
+  </a>
+
+  <div class="header-panel">
+<nav class="site-nav" id="top-nav" aria-label="Parliamentary Library tools">
+  <button type="button" id="top-menu-btn" class="top-menu-btn" aria-expanded="false" aria-controls="top-menu-links">
+    <span id="top-menu-current">Explore our tools</span>
+    <i class="fa-solid fa-bars" aria-hidden="true"></i>
+  </button>
+  <div class="top-menu-links" id="top-menu-links">
+    <a href="budget_buddy.html" class="nav-tab">Budget Buddy</a>
+    <a href="budget_dashboard.html" class="nav-tab">Budget Dashboard</a>
+    <a href="electorate_profiles.html" class="nav-tab">Electorate Profiles</a>
+  </div>
+</nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="hero-section">
+    <div class="hero-background" id="hero-background"></div>
+    <div class="hero-inner">
+      <h1><span class="fill"><span>Parliamentary</span></span>
+        <span class="fill"><span>Library</span></span></h1>
+      <span class="sub">Research Services for Parliament</span>
+    </div>
+  </section>
+
+  <section class="statement">
+    <div class="koru-motif koru-motif-left" aria-hidden="true"></div>
+    <p class="big" id="statement-text" data-fade>The Parliamentary Library is a working 
+      library that provides research services for members of Parliament and parliamentary staff. 
+      We also answer requests from the public for information on any aspect of Parliament.</p>
+  </section>
+
+  <section class="tools-intro" id="tools">
+    <p class="lead" data-fade><span>We have created a pilot platform to share selected tools, 
+                                    dashboards, maps and visualisations developed by the 
+                                    Research Services Team.</span></p>
+  </section>
+
+  <div class="chapters">
+
+    <section class="chapter accent-yellow">
+      <div class="chapter-copy">
+        <h2 class="chapter-title reveal">Budget<br>Dashboard</h2>
+        <p class="chapter-description reveal">Explore the 2026-2027 Estimates of Appropriations, including spending by sector, individual appropriations, revenue sources, and multi-year financial trends.</p>
+        <a class="chapter-link reveal" href="budget_dashboard.html">Visit page <span><i class="fa-solid fa-arrow-right-long"></i></span></a>
+      </div>
+      <div class="chapter-visual">
+        <div class="visual-frame tilt-left-3">
+          <div class="visual-tilt">
+           <div class="photo-window tester-window" id="dashboard-window"></div>
+            <p class="visual-caption">Estimates 2026–27</p>
+            </div>
+      </div>
+      </section>
+
+    <section class="chapter chapter accent-cyan">
+      <div class="chapter-copy">
+        <h2 class="chapter-title reveal">Budget<br>Buddy</h2>
+        <p class="chapter-description reveal">A playful, interactive tool to see where the Government’s money comes from and how it is spent. </p>
+        <p class="chapter-description reveal">Designed for exploration: play with the numbers to create your own Budget and 
+                                              consider what it means for you. </p>
+        <a class="chapter-link reveal" href="/budget_buddy.html">Visit page <span><i class="fa-solid fa-arrow-right-long"></i></span></a>
+      </div>
+            <div class="chapter-visual">
+        <div class="visual-frame tilt-right-3" data-no-tilt>
+          <div class="visual-tilt">
+               <div class="photo-window budget-window">
+              <span class="budget-label">Where every $100 goes:</span>
+              <div class="budget-strip" id="budget-strip"></div>
+              <p class="visual-caption">Budget Buddy: Spending at a glance</p>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </section>
+
+  <section class="chapter accent-coral">
+      <div class="chapter-copy">
+        <h2 class="chapter-title reveal">Electorate<br>Profiles</h2>
+        <p class="chapter-description reveal">
+         Want to learn more about the people, jobs, and lifestyles of your community?</p>
+        <p class="chapter-description reveal"> Explore our electorate profiles for insights on the people, education, housing, work and 
+          income of New Zealand’s seven Māori and 64 general electorates. All data is based on the 2023 Census. </p>
+        <a class="chapter-link reveal" href="/electorate_profiles.html">Visit page <span><i class="fa-solid fa-arrow-right-long"></i></span></a>
+      </div>
+        <div class="chapter-visual">
+        <div class="visual-frame tilt-left-2" data-no-tilt>
+          <div class="visual-tilt">
+            <div class="photo-window tester-window">
+              <div class="stat-panel">
+                  <h3 class="sr-only">Search for an Electorate...</h3>
+                <div class="electorate-search" id="electorate-search-tester">
+                  <div class="electorate-combobox" id="electorate-combobox-tester">
+                    <input type="text" id="electorate-search-input-tester" class="electorate-search-input" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="electorate-options-list-tester" autocomplete="off" placeholder="Search general electorates…">
+                    <button type="button" id="electorate-search-clear-tester" class="electorate-search-clear" aria-label="Clear search" tabindex="-1"><i class="fa-solid fa-xmark"></i></button>
+                    <ul id="electorate-options-list-tester" class="electorate-options-list" role="listbox"></ul>
+                  </div>
+                </div>
+                <br>
+                <div class="stat-cards">
+                  <article class="stat-card">
+                    <h3 class="stat-title">Total population</h3>
+                    <p class="stat-year">2023</p>
+                    <p class="stat-value" data-stat="totalPopulation">–</p>
+                    <p class="stat-unit">People</p>
+                  </article>
+
+                  <article class="stat-card">
+                    <h3 class="stat-title">Gender status</h3>
+                    <p class="stat-year">2023</p>
+                    <p class="stat-value" data-stat="genderSplit">–</p>
+                    <p class="stat-unit">Male / Female / Another Gender</p>
+                  </article>
+
+                  <article class="stat-card">
+                    <h3 class="stat-title">Post School Qualification <br> (Level 1+)</h3>
+                    <p class="stat-year">2023</p>
+                    <p class="stat-value" data-stat="schoolOrHigher">–</p>
+                    <p class="stat-unit">Aged 15+</p>
+                  </article>
+                  <article class="stat-card">
+                    <h3 class="stat-title">Post School Qualification <br> (Level 4+)</h3>
+                    <p class="stat-year">2023</p>
+                    <p class="stat-value" data-stat="degreeOrHigher">–</p>
+                    <p class="stat-unit">Aged 15+</p>
+                  </article>
+                </div>
+                <p class="visual-caption" id="tester-caption">Demographic overview</p>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <section class="silhouette">
+    <div class="library-silhouette" id="library-silhouette" aria-hidden="true"></div>
+  </section>
+
+  <section class="notice" id="about-site">
+    <div class="note">
+      <h2 class="reveal">About this site</h2>
+      <br><br>
+      <div class="note-columns">
+        <div class="note-column reveal">
+          <h3>Pilot initiative</h3>
+          <p> This website is a pilot initiative of the Parliamentary Library Research Services Team, bringing together selected tools, dashboards, maps and data products.</p>
+            <br>
+          
+          <p>Tools may be added, changed or removed as we learn what is most useful to our users. Have feedback? Let us know at <u><a href="mailto:parlinfo@parliament.govt.nz?subject=Parliament%20Library%20website%20feedback">parlinfo@parliament.govt.nz</a></u></p>
+        </div>
+
+            <div class="note-column">
+        <h3>Website Content</h3>
+        <p>The content on our website is provided for general information only. 
+          While we make every effort to ensure the information is accurate, it may contain errors or omissions. 
+          It should not be treated as advice or as an official position of the Library or of Parliament.   </p>
+        </div>
+        <div class="note-column">
+          <h3>Data and sources</h3>
+          <p>Data is sourced from publically avaliable information only. Sources are noted on each tool.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+<footer class="site-footer">
+  <div class="site-footer-brand">
+    <img src="assets/images/logo-nzp-white.svg" alt="">
+    <div class="site-footer-brand-text">
+      <span class="site-footer-brand-title">Pāremata Aotearoa</span>
+      <span class="site-footer-brand-sub">New Zealand Parliament</span>
+    </div>
+  </div>
+  <nav class="site-footer-nav" aria-label="Footer">
+    <a href="home.html">Home</a>
+    <a href="#about-site">About this site</a>
+  </nav>
+  <p class="site-footer-copyright">© Parliamentary Library 2026.</p>
+</footer>
+<script src="data/2023_combined_census_data.js"></script>
+<script src="scripts/load_census_data.js"></script> 
+    <script src="data/youth_budget_metadata.js" defer></script>
+    <script src="data/PREFU_metadata.js" defer></script>
+    <script src="data/budget_dashboard_metadata.js" defer></script>
+    <script src="data/budget_data.js" defer></script>
+<script src="scripts/shared_functions/utility_functions.js" defer></script>
+<script src="scripts/shared_functions/csv_functions.js" defer></script>
+<script src="scripts/shared_functions/treemap_creation.js" defer></script>
+<script src="scripts/shared_functions/chart_creation.js" defer></script>
+<script src="scripts/shared_functions/tooltips.js" defer></script>
+<script src="scripts/shared_functions/budget_calculations.js" defer></script>
+<script src="scripts/home.js" defer></script>
+</body>
+</html>
