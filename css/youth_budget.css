@@ -8,6 +8,7 @@
   --green-spiral: url('../assets/backgrounds/green-spirals.png');
   --orange-dots: url('../assets/backgrounds/orange-dots.png');
   --orange-gradient-dots: url('../assets/backgrounds/orange-gradient-dots.png');
+  --blue-green-blur: url('../assets/backgrounds/blue_green_blur.png');
   --curious-creature: url('../assets/creatures/question-creature-blob.png');
   --questioning-creature: url('../assets/creatures/question-creature.png');
   --avaricious-creature: url('../assets/creatures/goldfish.png');
@@ -60,9 +61,9 @@ body:has(#page-explore:not([hidden])) {
 }
 
 body:has(#page-tax:not([hidden])) {
-  --page-pattern: var(--pink-spirals);
-  --page-intro-color: var(--coral-light);
-  --credit-border-color:var(--coral-dark);
+  --page-pattern: var(--blue-green-blur);
+  --page-intro-color: var(--blue-light);
+  --credit-border-color:var(--blue-dark);
 }
 
 body:has(#page-build:not([hidden])) {
