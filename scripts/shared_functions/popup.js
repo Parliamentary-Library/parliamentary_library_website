@@ -60,7 +60,6 @@ window.PopupText = (() => {
   };
 
   // Creates stat cards for the amount, share of $100 and per-person figures, plus since last year when an item is passed in
-  // Creates stat cards (value with label underneath), plus since last year (percent in grey) when an item is passed in
   const createAmountFacts = (amount, shareOfHundred, sinceLastYearItem = null) => {
     const { calculatePerPersonAmount } = getBudgetCalculations();
     const { amountChange, percentChange } = sinceLastYearItem ? getYearChange(sinceLastYearItem) : {};
@@ -73,10 +72,11 @@ window.PopupText = (() => {
   };
 
   // Fills in and opens the popup dialog with the given kicker, title, colour, body and action buttons
-  function openPopup({ kicker = '', title, colour = 'var(--ink)', body = [], actions = [] }) {
+  function openPopup({ kicker = '', title, colour = 'var(--ink)', body = [], actions = [], variant = '' }) {
     selectOne('#pop-kicker').textContent = kicker;
     selectOne('#pop-title').textContent = title;
     popupDialog.style.setProperty('--c', colour);
+    popupDialog.dataset.variant = variant;
     selectOne('#pop-body').replaceChildren(...[body].flat(Infinity).filter(Boolean).map(item => (typeof item === 'string' ? createParagraph(item) : item)));
     selectOne('#pop-actions').replaceChildren(...actions.filter(Boolean));
     if (popupDialog.open) popupDialog.close();

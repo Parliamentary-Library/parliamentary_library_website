@@ -147,6 +147,7 @@ Author:      Data Unit
       kicker: revenueGroup.label + ' · ' + budgetData.years[year].label,
       title: item.label,
       colour: getRevenueItemColour(item),
+      variant: 'dashboard',
       body: [
         item.desc,
         createAmountFacts(item.selectedYearValue, shares[itemIndex], year === currentYear ? item : null),
